@@ -9,7 +9,9 @@ var (
 	// for int type map look up faster slice when element size between 25 and 30 or higher
 	sizeInt = 30
 	// for string type map look up faster when element size between 8 and 9 or higher
-	sizeStr = 9
+	// it depend also from capacity size for string type (int type independent)
+	// if set capacity more than 10 then map faster begining from 5
+	sizeStr = 5
 )
 
 func BenchmarkSearchSliceInt(b *testing.B) {
@@ -28,7 +30,7 @@ func BenchmarkSearchSliceInt(b *testing.B) {
 
 func BenchmarkSearchMapInt(b *testing.B) {
 	// init map
-	mp := make(map[int]struct{}, sizeInt)
+	mp := make(map[int]struct{}, sizeInt*2)
 	for i := 0; i < sizeInt; i++ {
 		mp[i] = struct{}{}
 	}
@@ -56,7 +58,7 @@ func BenchmarkSearchSliceStr(b *testing.B) {
 
 func BenchmarkSearchMapStr(b *testing.B) {
 	// init map
-	mp := make(map[string]struct{}, sizeStr)
+	mp := make(map[string]struct{}, sizeStr*2)
 	for i := 0; i < sizeStr; i++ {
 		k := strconv.Itoa(i)
 		mp[k] = struct{}{}

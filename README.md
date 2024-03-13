@@ -1,4 +1,4 @@
-# ttgo - test golang
+# rgo - Research of Golang
 specification, stdlibs, etc.
 
 ##### Repo struct

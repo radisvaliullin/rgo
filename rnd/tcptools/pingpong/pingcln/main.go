@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strings"
 )
 
 // simple tcp client
@@ -43,7 +44,7 @@ func session(conn net.Conn) error {
 			return err
 		}
 
-		_, err = conn.Write([]byte(in))
+		_, err = conn.Write([]byte(strings.TrimSpace(in)))
 		if err != nil {
 			log.Printf("session: write to conn err: %v", err)
 			return err
@@ -54,6 +55,6 @@ func session(conn net.Conn) error {
 			log.Printf("session: read from conn err: %v", err)
 			return err
 		}
-		log.Printf("sessions: response - %v", string(readBuf[:n]))
+		fmt.Println(string(readBuf[:n]))
 	}
 }

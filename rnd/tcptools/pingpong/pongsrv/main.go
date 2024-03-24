@@ -49,7 +49,7 @@ func handleConn(conn net.Conn) {
 			log.Printf("pong: read err: %v", err)
 			return
 		}
-		log.Printf("pong: read message - %v", string(readBuf[:n]))
+		fmt.Println(string(readBuf[:n]))
 
 		// write copy message
 		_, err = conn.Write(readBuf[:n])

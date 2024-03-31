@@ -44,7 +44,11 @@ func session(conn net.Conn) error {
 			return err
 		}
 
-		_, err = conn.Write([]byte(strings.TrimSpace(in)))
+		respMsg := strings.TrimSpace(in)
+		if len(respMsg) == 0 {
+			respMsg = "nope"
+		}
+		_, err = conn.Write([]byte(respMsg))
 		if err != nil {
 			log.Printf("session: write to conn err: %v", err)
 			return err
